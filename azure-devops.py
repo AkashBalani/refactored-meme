@@ -47,7 +47,7 @@ os.system("git commit -m \"Add Azure Pipelines configuration\"")
 os.system("git push origin main")
 
 # Configure GitHub Repository Secrets
-os.system(f"gh secret set AZURE_DEVOPS_PAT -b {github_repo_owner}/{github_repo_name} -r {github_repo_owner}/{github_repo_name} -v {azure_devops_pat}")
-os.system(f"gh secret set GITHUB_TOKEN -b {github_repo_owner}/{github_repo_name} -r {github_repo_owner}/{github_repo_name} -v {github_token}")
+os.system(f"gh secret set AZURE_DEVOPS_PAT -b {azure_devops_pat} -r {github_repo_owner}/{github_repo_name} -v selected")
+os.system(f"gh secret set GITHUB_TOKEN -b {github_token} -r {github_repo_owner}/{github_repo_name} -v selected")
 
 
