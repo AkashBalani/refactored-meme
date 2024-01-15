@@ -85,7 +85,7 @@ def create_azure_devops_service_connection():
 
 create_azure_devops_service_connection()
 
-az_path = r'C:\\Program Files (x86)\\Microsoft SDKs\\Azure\\CLI2\\wbin\\az.exe'
+az_path = r'C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd'
 
 def create_azure_pipeline():
     try:
