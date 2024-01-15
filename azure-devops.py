@@ -85,10 +85,10 @@ def create_azure_devops_service_connection():
 
 # create_azure_devops_service_connection()
         
-        
+
 
 # Trigger Build Pipeline
-os.system(f"az pipelines build queue --definition-name azure-pipelines --project {azure_devops_project} --organization https://dev.azure.com/{azure_devops_organization}")
+os.system(f"az pipelines build queue --definition-name AkashBalani.refactored-meme --project {azure_devops_project} --organization https://dev.azure.com/{azure_devops_organization}")
 
 
 
