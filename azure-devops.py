@@ -51,7 +51,7 @@ os.system(f"gh secret set AZURE_DEVOPS_PAT -b {azure_devops_pat} -r {github_repo
 os.system(f"gh secret set TOKEN_GH -b {github_token} -r {github_repo_owner}/{github_repo_name}")
 
 # Trigger Build Pipeline
-os.system(f"az pipelines build queue --definition-name azure-pipelines --project {azure_devops_project} --organization {azure_devops_organization}")
+os.system(f"az pipelines build queue --definition-name azure-pipelines --project {azure_devops_project} --organization https://dev.azure.com/{azure_devops_organization}")
 
 
 
