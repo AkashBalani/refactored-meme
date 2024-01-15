@@ -1,4 +1,6 @@
 import os
+import requests
+import base64
 
 azure_devops_project = "Pipeline_Project"
 azure_devops_organization = "balaniaakash"
@@ -34,6 +36,8 @@ github_repo_name = "refactored-meme"
 github_token = os.environ.get('GITHUB_ACCESS_TOKEN')
 azure_devops_pat = os.environ.get('AZURE_DEVOPS_PAT')
 
+github_pat_base64 = base64.b64encode(f"{github_token}:".encode()).decode()
+
 repo_exists = os.system(f"gh repo view {github_repo_owner}/{github_repo_name}")
 
 if repo_exists == 0:
@@ -50,7 +54,34 @@ os.system("git push origin main")
 os.system(f"gh secret set AZURE_DEVOPS_PAT -b {azure_devops_pat} -r {github_repo_owner}/{github_repo_name}")
 os.system(f"gh secret set TOKEN_GH -b {github_token} -r {github_repo_owner}/{github_repo_name}")
 
-os.system(f"az devops service-endpoint github create --project {azure_devops_project} --repository {github_repo_owner}/{github_repo_name} --token {github_token}")
+url = f"https://dev.azure.com/{azure_devops_organization}/{azure_devops_project}/_apis/serviceendpoint/endpoints?api-version=7.1-preview.2"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Basic {github_pat_base64}"
+}
+
+data = {
+    "data": {
+        "accessToken": github_token,
+        "repository": github_repo_owner + '/' + github_repo_name
+    },
+    "name": "GitHubConnection",
+    "type": "github",
+    "url": f"https://github.com/{github_repo_owner}/{github_repo_name}",
+    "authorization": {
+        "parameters": {
+            "accessToken": github_token
+        },
+        "scheme": "PersonalAccessToken"
+    }
+}
+
+response = requests.post(url, headers=headers, json=data)
+
+if response.status_code == 200:
+    print("GitHub service connection created successfully.")
+else:
+    print(f"Failed to create GitHub service connection. Status code: {response.status_code}, Error: {response.text}")
 
 # Trigger Build Pipeline
 os.system(f"az pipelines build queue --definition-name azure-pipelines --project {azure_devops_project} --organization https://dev.azure.com/{azure_devops_organization}")
