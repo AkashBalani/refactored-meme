@@ -84,6 +84,8 @@ def create_azure_devops_service_connection():
         print(f"Failed to create Azure DevOps service connection. Status code: {response.status_code}, Error: {response.text}")
 
 # create_azure_devops_service_connection()
+        
+        
 
 # Trigger Build Pipeline
 os.system(f"az pipelines build queue --definition-name azure-pipelines --project {azure_devops_project} --organization https://dev.azure.com/{azure_devops_organization}")
