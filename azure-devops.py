@@ -31,6 +31,8 @@ with open("azure-pipelines.yml", "w") as file:
 
 github_repo_owner = "AkashBalani"
 github_repo_name = "refactored-meme"
+github_token = os.environ.get('GITHUB_ACCESS_TOKEN')
+azure_devops_pat = os.environ.get('AZURE_DEVOPS_PAT')
 
 repo_exists = os.system(f"gh repo view {github_repo_owner}/{github_repo_name}")
 
@@ -43,4 +45,9 @@ else:
 os.system("git add .")
 os.system("git commit -m \"Add Azure Pipelines configuration\"")
 os.system("git push origin main")
+
+# Configure GitHub Repository Secrets
+os.system(f"gh secret set AZURE_DEVOPS_PAT -b {github_repo_owner}/{github_repo_name} -r {github_repo_owner}/{github_repo_name} -w -v {azure_devops_pat}")
+os.system(f"gh secret set GITHUB_TOKEN -b {github_repo_owner}/{github_repo_name} -r {github_repo_owner}/{github_repo_name} -w -v {github_token}")
+
 
