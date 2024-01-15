@@ -50,6 +50,8 @@ os.system("git push origin main")
 os.system(f"gh secret set AZURE_DEVOPS_PAT -b {azure_devops_pat} -r {github_repo_owner}/{github_repo_name}")
 os.system(f"gh secret set TOKEN_GH -b {github_token} -r {github_repo_owner}/{github_repo_name}")
 
+os.system(f"az devops service-endpoint github create --project {azure_devops_project} --repository {github_repo_owner}/{github_repo_name} --token {github_token}")
+
 # Trigger Build Pipeline
 os.system(f"az pipelines build queue --definition-name azure-pipelines --project {azure_devops_project} --organization https://dev.azure.com/{azure_devops_organization}")
 
