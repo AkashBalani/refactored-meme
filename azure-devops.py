@@ -85,12 +85,13 @@ def create_azure_devops_service_connection():
 
 create_azure_devops_service_connection()
 
+az_path = r'C:\\Program Files (x86)\\Microsoft SDKs\\Azure\\CLI2\\wbin\\az.exe'
 
 def create_azure_pipeline():
     try:
         # Command to create an Azure Pipeline
         command = [
-            'az', 'pipelines', 'create',
+            az_path, 'pipelines', 'create',
             '--name', pipeline_name,
             '--repository', f'https://dev.azure.com/{azure_devops_organization}/{azure_devops_project}/_git/{github_repo_name}',
             '--repository-url', 'https://github.com/AkashBalani/refactored-meme',  # Replace with your GitHub repository URL
