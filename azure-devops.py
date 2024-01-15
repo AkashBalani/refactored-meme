@@ -94,6 +94,7 @@ def create_azure_pipeline():
             az_path, 'pipelines', 'create',
             '--name', pipeline_name,
             '--repository', f'https://dev.azure.com/{azure_devops_organization}/{azure_devops_project}/_git/{github_repo_name}',
+            '--organization', f'https://dev.azure.com/{azure_devops_organization}'
         ]
 
         # Execute the command
