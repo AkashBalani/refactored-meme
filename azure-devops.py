@@ -1,6 +1,7 @@
 import os
 import requests
 import base64
+import subprocess
 
 azure_devops_project = "Pipeline_Project"
 azure_devops_organization = "balaniaakash"
@@ -33,6 +34,8 @@ with open("azure-pipelines.yml", "w") as file:
 
 github_repo_owner = "AkashBalani"
 github_repo_name = "refactored-meme"
+pipeline_name = "test1"
+yaml_path = "azure-pipelines.yml"
 github_token = os.environ.get('GITHUB_ACCESS_TOKEN')
 azure_devops_pat = os.environ.get('AZURE_DEVOPS_PAT')
 
@@ -83,6 +86,23 @@ def create_azure_devops_service_connection():
 create_azure_devops_service_connection()
 
 
+def create_azure_pipeline():
+    try:
+        # Command to create an Azure Pipeline
+        command = [
+            'az', 'pipelines', 'create',
+            '--name', {pipeline_name},
+            '--repository', f'https://dev.azure.com/{azure_devops_organization}/{azure_devops_project}/_git/{github_repo_name}',
+            '--yaml-path', {yaml_path}
+        ]
+
+        # Execute the command
+        subprocess.run(command, check=True)
+        print(f"Azure Pipeline '{pipeline_name}' created successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to create Azure Pipeline. Error: {e}")
+
+create_azure_pipeline()
 # Trigger Build Pipeline
 os.system(f"az pipelines build queue --definition-name azure-pipelines --project {azure_devops_project} --organization https://dev.azure.com/{azure_devops_organization}")
 
