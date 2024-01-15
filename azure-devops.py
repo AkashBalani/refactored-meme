@@ -83,28 +83,8 @@ def create_azure_devops_service_connection():
     else:
         print(f"Failed to create Azure DevOps service connection. Status code: {response.status_code}, Error: {response.text}")
 
-create_azure_devops_service_connection()
+# create_azure_devops_service_connection()
 
-az_path = r'C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd'
-
-def create_azure_pipeline():
-    try:
-        # Command to create an Azure Pipeline
-        command = [
-            az_path, 'pipelines', 'create',
-            '--name', pipeline_name,
-            '--repository', f'https://dev.azure.com/{azure_devops_organization}/{azure_devops_project}/_git/{github_repo_name}',
-            '--organization', f'https://dev.azure.com/{azure_devops_organization}',
-            '--project', f'{azure_devops_project}'
-        ]
-
-        # Execute the command
-        subprocess.run(command, check=True)
-        print(f"Azure Pipeline '{pipeline_name}' created successfully.")
-    except subprocess.CalledProcessError as e:
-        print(f"Failed to create Azure Pipeline. Error: {e}")
-
-create_azure_pipeline()
 # Trigger Build Pipeline
 os.system(f"az pipelines build queue --definition-name azure-pipelines --project {azure_devops_project} --organization https://dev.azure.com/{azure_devops_organization}")
 
