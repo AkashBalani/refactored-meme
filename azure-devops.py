@@ -35,7 +35,7 @@ with open("azure-pipelines.yml", "w") as file:
 github_repo_owner = "AkashBalani"
 github_repo_name = "refactored-meme"
 pipeline_name = "test1"
-yaml_path = os.path.abspath('azure-pipelines.yml')
+yaml_path = r"C:\Users\balan\Projects\Pipelines\azure-pipelines.yml"
 github_token = os.environ.get('GITHUB_ACCESS_TOKEN')
 azure_devops_pat = os.environ.get('AZURE_DEVOPS_PAT')
 
