@@ -93,7 +93,8 @@ def create_azure_pipeline():
             'az', 'pipelines', 'create',
             '--name', pipeline_name,
             '--repository', f'https://dev.azure.com/{azure_devops_organization}/{azure_devops_project}/_git/{github_repo_name}',
-            '--yaml-path', yaml_path
+            '--repository-url', 'https://github.com/AkashBalani/refactored-meme',  # Replace with your GitHub repository URL
+            '--content', build_pipeline_yaml
         ]
 
         # Execute the command
