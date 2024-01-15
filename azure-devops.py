@@ -28,3 +28,19 @@ steps:
 
 with open("azure-pipelines.yml", "w") as file:
     file.write(build_pipeline_yaml)
+
+github_repo_owner = "AkashBalani"
+github_repo_name = "refactored-meme"
+
+repo_exists = os.system(f"gh repo view {github_repo_owner}/{github_repo_name}")
+
+if repo_exists == 0:
+    print(f"GitHub repository '{github_repo_owner}/{github_repo_name}' already exists.")
+else:
+    # Create GitHub repository if it doesn't exist
+    os.system(f"gh repo create {github_repo_owner}/{github_repo_name} --confirm")
+    print(f"GitHub repository '{github_repo_owner}/{github_repo_name}' created successfully.")
+os.system("git add .")
+os.system("git commit -m \"Add Azure Pipelines configuration\"")
+os.system("git push origin main")
+
