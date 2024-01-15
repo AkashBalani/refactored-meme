@@ -48,6 +48,6 @@ os.system("git push origin main")
 
 # Configure GitHub Repository Secrets
 os.system(f"gh secret set AZURE_DEVOPS_PAT -b {azure_devops_pat} -r {github_repo_owner}/{github_repo_name}")
-os.system(f"gh secret set GITHUB_TOKEN -b {github_token} -r {github_repo_owner}/{github_repo_name}")
+os.system(f"gh secret set TOKEN_GH -b {github_token} -r {github_repo_owner}/{github_repo_name}")
 
 
